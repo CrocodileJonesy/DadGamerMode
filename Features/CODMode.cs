@@ -36,7 +36,7 @@ EBodyPart.LeftLeg, EBodyPart.LeftArm, EBodyPart.RightArm };
         }
         internal static void Enable()
         {
-            if (Singleton<IBotGame>.Instantiated)
+            if (Singleton<GameWorld>.Instantiated)
             {
                 var gameWorld = Singleton<GameWorld>.Instance;
                 gameWorld.GetOrAddComponent<CODModeComponent>();
