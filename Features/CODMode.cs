@@ -5,7 +5,7 @@ using EFT;
 using EFT.HealthSystem;
 using UnityEngine;
 
-using AbstractIEffect = EFT.HealthSystem.ActiveHealthController.GClass2746;
+using AbstractIEffect = EFT.HealthSystem.ActiveHealthController.GClass2813;
 
 namespace dvize.DadGamerMode.Features
 {
@@ -13,6 +13,7 @@ namespace dvize.DadGamerMode.Features
     {
         private static Player player;
         private static ActiveHealthController healthController;
+        private static ActiveHealthController.Class2112 someClassWithEffectsCheck;
         private static float timeSinceLastHit = 0f;
         private static bool isRegenerating = false;
         private static float newHealRate;
@@ -48,6 +49,7 @@ EBodyPart.LeftLeg, EBodyPart.LeftArm, EBodyPart.RightArm };
         {
             player = Singleton<GameWorld>.Instance.MainPlayer;
             healthController = player.ActiveHealthController;
+            someClassWithEffectsCheck = new ActiveHealthController.Class2112();
             isRegenerating = false;
             timeSinceLastHit = 0f;
             newHealRate = 0f;
@@ -73,8 +75,8 @@ EBodyPart.LeftLeg, EBodyPart.LeftArm, EBodyPart.RightArm };
             //grabbed this from remove negative effects method
             if (dadGamerPlugin.CODModeToggle.Value && !dadGamerPlugin.CODBleedingDamageToggle.Value)
             {
-                //if (Singleton<ActiveHealthController.Class1917>.Instance.method_0(effect as AbstractIEffect))
-                if (!(effect is GInterface296) && !(effect is GInterface297))
+                if (someClassWithEffectsCheck.method_1(effect as AbstractIEffect))
+                //if (!(effect is GInterface308) && !(effect is GInterface309))
                 {
                     //@sugonyak: outdated info below, too lazy to update it, sorry:
                     //GInterface257 is Light Bleeding

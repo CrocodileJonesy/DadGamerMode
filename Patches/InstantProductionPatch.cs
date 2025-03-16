@@ -14,11 +14,11 @@ namespace dvize.DadGamerMode.Patches
     {
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(GClass2149), nameof(GClass2149.Update));
+            return AccessTools.Method(typeof(GClass2193), nameof(GClass2193.Update));
         }
 
         [PatchPrefix]
-        private static bool Prefix(GClass2149 __instance, float deltaTime)
+        private static bool Prefix(GClass2193 __instance, float deltaTime)
         {
             if (dadGamerPlugin.InstantProductionEnabled.Value)
             {
@@ -28,7 +28,7 @@ namespace dvize.DadGamerMode.Patches
                 }
 
                 // Filter itemsToComplete by removing bitcoin farm
-                List<KeyValuePair<string, GClass2156>> itemsToComplete = new List<KeyValuePair<string, GClass2156>>(__instance.ProducingItems);
+                List<KeyValuePair<string, GClass2200>> itemsToComplete = new List<KeyValuePair<string, GClass2200>>(__instance.ProducingItems);
                 itemsToComplete.RemoveAll(x => x.Key == "5d5589c1f934db045e6c5492" || x.Key == "5d5c205bd582a50d042a3c0e"); //bitcoin and fuel?
 
                 foreach (var kvp in itemsToComplete)
@@ -48,18 +48,18 @@ namespace dvize.DadGamerMode.Patches
     }
 
     // Extension method to handle CompleteProduction
-    internal static class GClass2152Extensions
+    internal static class GClass2196Extensions
     {
-        private static readonly FieldInfo Class1782Field;
+        private static readonly FieldInfo Class1821Field;
         private static readonly FieldInfo ProgressField;
 
-        static GClass2152Extensions()
+        static GClass2196Extensions()
         {
-            Class1782Field = AccessTools.Field(typeof(GClass2156), "class1782_0");
-            ProgressField = AccessTools.Field(typeof(GClass2156.Class1782), "double_1");
+            Class1821Field = AccessTools.Field(typeof(GClass2200), "class1821_0");
+            ProgressField = AccessTools.Field(typeof(GClass2200.Class1821), "double_1");
         }
 
-        public static void CompleteProduction(this GClass2149 __instance, GClass2156 producingItem, ProductionBuildAbstractClass scheme)
+        public static void CompleteProduction(this GClass2193 __instance, GClass2200 producingItem, ProductionBuildAbstractClass scheme)
         {
             if (__instance == null || producingItem == null || scheme == null)
             {
@@ -69,15 +69,15 @@ namespace dvize.DadGamerMode.Patches
 
             try
             {
-                var class1782Instance = Class1782Field.GetValue(producingItem);
-                if (class1782Instance == null)
+                var class1821Instance = Class1821Field.GetValue(producingItem);
+                if (class1821Instance == null)
                 {
-                    dadGamerPlugin.Logger.LogError("CompleteProduction: class1782Instance is null.");
+                    dadGamerPlugin.Logger.LogError("CompleteProduction: class1821Instance is null.");
                     return;
                 }
 
                 // Set the Progress field to 1.0 (complete)
-                ProgressField.SetValue(class1782Instance, 1.0);
+                ProgressField.SetValue(class1821Instance, 1.0);
 
                 Item item = __instance.CreateCompleteItem(scheme);
                 if (item == null)
