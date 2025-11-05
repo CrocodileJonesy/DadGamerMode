@@ -5,7 +5,7 @@ using EFT;
 using EFT.HealthSystem;
 using UnityEngine;
 
-using AbstractIEffect = EFT.HealthSystem.ActiveHealthController.GClass2813;
+using AbstractIEffect = EFT.HealthSystem.ActiveHealthController.GClass3008;
 
 namespace dvize.DadGamerMode.Features
 {
@@ -13,7 +13,7 @@ namespace dvize.DadGamerMode.Features
     {
         private static Player player;
         private static ActiveHealthController healthController;
-        private static ActiveHealthController.Class2112 someClassWithEffectsCheck;
+        private static ActiveHealthController.Class2225 someClassWithEffectsCheck;
         private static float timeSinceLastHit = 0f;
         private static bool isRegenerating = false;
         private static float newHealRate;
@@ -49,7 +49,7 @@ EBodyPart.LeftLeg, EBodyPart.LeftArm, EBodyPart.RightArm };
         {
             player = Singleton<GameWorld>.Instance.MainPlayer;
             healthController = player.ActiveHealthController;
-            someClassWithEffectsCheck = new ActiveHealthController.Class2112();
+            someClassWithEffectsCheck = new ActiveHealthController.Class2225();
             isRegenerating = false;
             timeSinceLastHit = 0f;
             newHealRate = 0f;

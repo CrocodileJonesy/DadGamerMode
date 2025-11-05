@@ -34,4 +34,4 @@ using VersionChecker;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.11.0.0")]
 [assembly: AssemblyFileVersion("1.11.0.0")]
-[assembly: TarkovVersion(35392)]
+[assembly: TarkovVersion()]
