@@ -7,113 +7,48 @@ using BepInEx.Logging;
 using dvize.DadGamerMode.Features;
 using EFT;
 
+// TODO: Fix bug where fall damage still kills player when keep health enabled
+// TODO: Add option to take damage with blacked/factured limbs, as mod disables it?
+// TODO: Bug (In this mod?) Where getting infected bug makes you invincible
+
 namespace dvize.GodModeTest
 {
     [BepInPlugin("com.dvize.DadGamerMode", "dvize.DadGamerMode", "1.12.0")]
     //[BepInDependency("com.SPT.core", "3.8.0")]
     public class dadGamerPlugin : BaseUnityPlugin
     {
-        public static ConfigEntry<Boolean> Godmode
-        {
-            get; set;
-        }
-        public static ConfigEntry<Boolean> Keep1Health
-        {
-            get; set;
-        }
-        public static ConfigEntry<string> Keep1HealthSelection
-        {
-            get; set;
-        }
+        public static ConfigEntry<Boolean> Godmode { get; set; }
+        public static ConfigEntry<Boolean> Keep1Health { get; set; }
+        public static ConfigEntry<string> Keep1HealthSelection { get; set; }
         //list of values for Keep1HealthSelection
         public string[] Keep1HealthSelectionList = new string[] { "All", "Head And Thorax" };
-        public static ConfigEntry<Boolean> NoFallingDamage
-        {
-            get; set;
-        }
-        public static ConfigEntry<int> CustomHeadDamageModeVal
-        {
-            get; set;
-        }
-        public static ConfigEntry<int> CustomDamageModeVal
-        {
-            get; set;
-        }
-        public static ConfigEntry<Boolean> IgnoreHeadShotDamage
-        {
-            get; set;
-        }
-        public static ConfigEntry<Boolean> PercentageHeadShotDamageOnly
-        {
-            get; set;
-        }
-        public static ConfigEntry<Boolean> MaxStaminaToggle
-        {
-            get; set;
-        }
+        public static ConfigEntry<Boolean> NoFallingDamage { get; set; }
+        public static ConfigEntry<int> CustomHeadDamageModeVal { get; set; }
+        public static ConfigEntry<int> CustomDamageModeVal { get; set; }
+        public static ConfigEntry<Boolean> IgnoreHeadShotDamage { get; set; }
+        public static ConfigEntry<Boolean> PercentageHeadShotDamageOnly { get; set; }
+        public static ConfigEntry<Boolean> MaxStaminaToggle { get; set; }
 
-        public static ConfigEntry<Boolean> MaxHydrationToggle
-        {
-            get; set;
-        }
+        public static ConfigEntry<Boolean> MaxHydrationToggle { get; set; }
 
-        public static ConfigEntry<Boolean> MaxEnergyToggle
-        {
-            get; set;
-        }
+        public static ConfigEntry<Boolean> MaxEnergyToggle { get; set; }
 
-        public static ConfigEntry<Boolean> CODModeToggle
-        {
-            get; set;
-        }
-        public static ConfigEntry<float> CODModeHealRate
-        {
-            get; set;
-        }
-        public static ConfigEntry<float> CODModeHealWait
-        {
-            get; set;
-        }
-        public static ConfigEntry<Boolean> CODBleedingDamageToggle
-        {
-            get; set;
-        }
-        public static ConfigEntry<bool> InstantProductionEnabled
-        {
-            get; set;
-        }
-        public static ConfigEntry<bool> InstantConstructionEnabled
-        {
-            get; set;
-        }
+        public static ConfigEntry<Boolean> CODModeToggle { get; set; }
+        public static ConfigEntry<float> CODModeHealRate { get; set; }
+        public static ConfigEntry<float> CODModeHealWait { get; set; }
+        public static ConfigEntry<Boolean> CODBleedingDamageToggle { get; set; }
+        public static ConfigEntry<bool> InstantProductionEnabled { get; set; }
+        public static ConfigEntry<bool> InstantConstructionEnabled { get; set; }
 
-        public static ConfigEntry<bool> ToggleReloadUnloadSpeed
-        {
-            get; set;
-        }
-        public static ConfigEntry<float> ReloadSpeed
-        {
-            get; set;
-        }
+        public static ConfigEntry<bool> ToggleReloadUnloadSpeed { get; set; }
+        public static ConfigEntry<float> ReloadSpeed { get; set; }
 
-        public static ConfigEntry<float> UnloadSpeed
-        {
-            get; set;
-        }
-        public static ConfigEntry<float> enemyDamageMultiplier
-        {
-            get; set;
-        }
+        public static ConfigEntry<float> UnloadSpeed { get; set; }
+        public static ConfigEntry<float> enemyDamageMultiplier { get; set; }
 
-        public static ConfigEntry<int> totalWeightReductionPercentage
-        {
-            get; set;
-        }
+        public static ConfigEntry<int> totalWeightReductionPercentage { get; set; }
 
-        internal static ManualLogSource Logger
-        {
-            get; set;
-        }
+        internal static ManualLogSource Logger { get; set; }
 
         internal void Awake()
         {
@@ -161,7 +96,7 @@ namespace dvize.GodModeTest
                 null, new ConfigurationManagerAttributes { IsAdvanced = false, Order = 9 }));
 
             MaxHydrationToggle = Config.Bind("3. QOL", "Infinite Hydration", false, new ConfigDescription("Hydration never drains so no drinking",
-                null, new ConfigurationManagerAttributes { IsAdvanced = false, Order = 8}));
+                null, new ConfigurationManagerAttributes { IsAdvanced = false, Order = 8 }));
 
             InstantProductionEnabled = Config.Bind("3. QOL", "Instant Production", false, new ConfigDescription("Produce Items Instantly",
                 null, new ConfigurationManagerAttributes { IsAdvanced = false, Order = 7 }));
@@ -202,7 +137,7 @@ namespace dvize.GodModeTest
             new DadGamerMode.Patches.InstantConstructionPatch().Enable();
         }
 
-        
+
         internal class NewGamePatch : ModulePatch
         {
             protected override MethodBase GetTargetMethod() => typeof(GameWorld).GetMethod(nameof(GameWorld.OnGameStarted));
